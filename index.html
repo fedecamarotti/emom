@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMOM Gym – CrossFit & Funcional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #1a1c1e;
+    --bg-darker: #111314;
+    --bg-light: #f0efed;
+    --bg-light2: #e8e6e2;
+    --orange: #E05A00;
+    --orange-light: #ff6a00;
+    --white: #ffffff;
+    --gray: #888;
+    --text-dark: #1a1c1e;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--bg-dark);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 70px;
+    background: rgba(17,19,20,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .logo-wrap img {
+    height: 46px;
+    width: auto;
+    display: block;
+    border-radius: 50%;
+  }
+
+  nav {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+  }
+
+  nav a {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  nav a:hover, nav a.active { color: var(--orange); }
+
+  /* ── HERO ── */
+  #home {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('image/home.png') center center / cover no-repeat;
+    filter: grayscale(100%) brightness(0.55);
+    transform: scale(1.06);
+    animation: heroZoom 14s ease-in-out infinite alternate;
+  }
+
+  @keyframes heroZoom {
+    from { transform: scale(1.06); }
+    to   { transform: scale(1.14); }
+  }
+
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.35;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(17,19,20,0.15) 0%, rgba(17,19,20,0.0) 40%, rgba(17,19,20,0.75) 100%);
+  }
+
+  .hero-cta {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-cta-label {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .hero-cta a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: var(--white);
+  }
+
+  .hero-cta a:hover .arrow-circle { border-color: var(--orange); }
+  .hero-cta a:hover svg { stroke: var(--orange); }
+
+  .arrow-circle {
+    width: 44px; height: 44px;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    animation: bounce 1.8s ease-in-out infinite;
+    transition: border-color 0.2s;
+  }
+
+  .arrow-circle svg {
+    transition: stroke 0.2s;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(7px); }
+  }
+
+  /* ── SECTION BASE ── */
+  section { scroll-margin-top: 70px; }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 6vw, 80px);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+
+  .orange-bar {
+    width: 48px; height: 3px;
+    background: var(--orange);
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  /* ── NOSOTROS ── */
+  #nosotros {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    padding: 96px 48px;
+  }
+
+  .nosotros-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .nosotros-text .section-title { color: var(--text-dark); }
+
+  .nosotros-text .orange-bar { margin-top: 16px; margin-bottom: 28px; }
+
+  .nosotros-text p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #444;
+    margin-bottom: 16px;
+  }
+
+  /* Carrusel */
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    background: #ccc;
+    aspect-ratio: 4/3;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.55s cubic-bezier(0.77,0,0.18,1);
+    height: 100%;
+  }
+
+  .carousel-track img {
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    background: rgba(17,19,20,0.55);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+    z-index: 2;
+  }
+
+  .carousel-btn:hover { background: var(--orange); border-color: var(--orange); }
+  .carousel-btn.prev { left: 12px; }
+  .carousel-btn.next { right: 12px; }
+
+  .carousel-dots {
+    position: absolute;
+    bottom: 10px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 6px;
+  }
+
+  .carousel-dots span {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .carousel-dots span.active { background: var(--orange); }
+
+  /* ── CLASES ── */
+  #clases {
+    background: var(--bg-darker);
+    padding: 96px 48px;
+  }
+
+  .clases-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .clases-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .clases-header .section-title { color: var(--white); }
+
+  .btn-reserva {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--orange);
+    padding: 14px 32px;
+    text-decoration: none;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-reserva:hover {
+    background: var(--orange-light);
+    transform: translateY(-2px);
+  }
+
+  /* Grilla horarios */
+  .schedule-grid {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+  }
+
+  .schedule-table th {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .schedule-table td {
+    padding: 11px 14px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .schedule-table tr:last-child td { border-bottom: none; }
+
+  .schedule-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+  .pill {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 2px;
+    background: rgba(224,90,0,0.15);
+    color: var(--orange);
+    border: 1px solid rgba(224,90,0,0.35);
+  }
+
+  .pill.func {
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.6);
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  .pill.mob {
+    background: rgba(80,180,120,0.1);
+    color: #5cb88a;
+    border-color: rgba(80,180,120,0.25);
+  }
+
+  .schedule-note {
+    margin-top: 18px;
+    font-size: 12px;
+    color: var(--gray);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── MERCHANDISING ── */
+  #merchandasing {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    padding: 96px 0 72px;
+  }
+
+  .merch-header {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    padding: 0 48px;
+  }
+
+  .merch-header .section-title { color: var(--text-dark); }
+  .merch-header .orange-bar { margin-top: 16px; }
+
+  .merch-carousel {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .merch-track-wrap {
+    overflow: hidden;
+    padding: 0 48px;
+  }
+
+  .merch-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.55s cubic-bezier(0.77,0,0.18,1);
+  }
+
+  .merch-card {
+    flex: 0 0 calc(20% - 16px);
+    background: #e0ded9;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    position: relative;
+    border-radius: 2px;
+  }
+
+  .merch-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    display: block;
+  }
+
+  .merch-card:hover img { transform: scale(1.05); }
+
+  .merch-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .merch-btn {
+    background: transparent;
+    border: 1.5px solid #bbb;
+    color: #555;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .merch-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+  .merch-cta {
+    text-align: center;
+    margin-top: 44px;
+  }
+
+  .btn-pedido {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--orange);
+    padding: 16px 44px;
+    text-decoration: none;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-pedido:hover {
+    background: var(--orange-light);
+    transform: translateY(-2px);
+  }
+
+  /* ── CONTACTO ── */
+  #contacto {
+    background: var(--bg-darker);
+    padding: 96px 48px;
+  }
+
+  .contacto-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 72px;
+    align-items: start;
+  }
+
+  .redes-col .section-title { color: var(--white); }
+  .redes-col .orange-bar { margin-top: 16px; margin-bottom: 36px; }
+
+  .red-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    text-decoration: none;
+    color: rgba(255,255,255,0.8);
+    transition: color 0.2s;
+  }
+
+  .red-item:hover { color: var(--orange); }
+  .red-item:hover .red-icon { background: var(--orange); border-color: var(--orange); }
+
+  .red-icon {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .red-icon svg { display: block; }
+
+  .red-label {
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    font-weight: 300;
+  }
+
+  .map-col {
+    border-radius: 2px;
+    overflow: hidden;
+    height: 380px;
+  }
+
+  .map-col iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    filter: grayscale(40%) brightness(0.85);
+    transition: filter 0.3s;
+  }
+
+  .map-col:hover iframe { filter: grayscale(0%) brightness(1); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0c0d0e;
+    text-align: center;
+    padding: 28px 48px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    header { padding: 0 20px; }
+    nav { gap: 20px; }
+    nav a { font-size: 11px; }
+
+    #nosotros { padding: 72px 24px; }
+    .nosotros-inner { grid-template-columns: 1fr; gap: 40px; }
+
+    #clases { padding: 72px 24px; }
+    .clases-header { flex-direction: column; align-items: flex-start; }
+
+    #merchandasing { padding: 72px 0 56px; }
+    .merch-header { padding: 0 24px; }
+    .merch-track-wrap { padding: 0 24px; }
+    .merch-card { flex: 0 0 calc(50% - 10px); }
+
+    #contacto { padding: 72px 24px; }
+    .contacto-inner { grid-template-columns: 1fr; gap: 48px; }
+  }
+
+  @media (max-width: 600px) {
+    nav a span { display: none; }
+    .merch-card { flex: 0 0 calc(75% - 10px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <img src="image/logo.png" alt="EMOM Gym">
+  </div>
+  <nav>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#clases">Clases</a>
+    <a href="#merchandasing">Merchandising</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-cta">
+    <span class="hero-cta-label">CrossFit &amp; Entrenamiento Funcional</span>
+    <a href="#nosotros">
+      <div class="arrow-circle">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="2" x2="8" y2="13"/>
+          <polyline points="4 9 8 13 12 9"/>
+        </svg>
+      </div>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.55);">CONOCENOS</span>
+    </a>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="nosotros-inner">
+    <div class="nosotros-text">
+      <div class="section-title">NOSOTROS</div>
+      <span class="orange-bar"></span>
+      <p>EMOM es un gimnasio pensado para acompañarte en el cambio que estás buscando. Creemos en un enfoque integral, donde entrenar no es solo moverse, sino mejorar tu bienestar y construir hábitos sostenibles.</p>
+      <p>Ofrecemos clases de CrossFit, entrenamiento funcional y más, adaptadas a distintos niveles, con equipamiento de primera calidad.</p>
+      <p>Nuestro compromiso es cuidarte en cada clase, con profesionales capacitados que te guían para que entrenes de forma segura, efectiva y constante.</p>
+    </div>
+    <div class="carousel" id="gymCarousel">
+      <div class="carousel-track" id="gymTrack">
+        <img src="image/gym01.jpg" alt="EMOM Gym">
+        <img src="image/gym02.jpg" alt="EMOM Gym">
+        <img src="image/gym03.jpg" alt="EMOM Gym">
+        <img src="image/gym04.jpg" alt="EMOM Gym">
+        <img src="image/gym05.jpg" alt="EMOM Gym">
+      </div>
+      <button class="carousel-btn prev" onclick="gymMove(-1)">&#8592;</button>
+      <button class="carousel-btn next" onclick="gymMove(1)">&#8594;</button>
+      <div class="carousel-dots" id="gymDots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASES -->
+<section id="clases">
+  <div class="clases-inner">
+    <div class="clases-header">
+      <div>
+        <div class="section-title">CLASES</div>
+        <span class="orange-bar" style="margin-top:14px;display:block;"></span>
+      </div>
+      <a class="btn-reserva" href="https://wa.me/5493455285010?text=Hola!%20Quisiera%20reservar%20mi%20clase%20de%20prueba%20en%20EMOM%20Gym" target="_blank">
+        Reservá tu clase de prueba
+      </a>
+    </div>
+    <div class="schedule-grid">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Horario</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Sábado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>07:00</td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill func">Funcional</span></td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill func">Funcional</span></td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill mob">Movilidad</span></td>
+          </tr>
+          <tr>
+            <td>09:00</td>
+            <td><span class="pill func">Funcional</span></td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill mob">Movilidad</span></td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill func">Funcional</span></td>
+            <td><span class="pill">CrossFit</span></td>
+          </tr>
+          <tr>
+            <td>11:00</td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill mob">Movilidad</span></td>
+            <td><span class="pill func">Funcional</span></td>
+            <td><span class="pill mob">Movilidad</span></td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill func">Funcional</span></td>
+          </tr>
+          <tr>
+            <td>17:00</td>
+            <td><span class="pill func">Funcional</span></td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill func">Funcional</span></td>
+            <td><span class="pill mob">Movilidad</span></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>19:00</td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill func">Funcional</span></td>
+            <td><span class="pill mob">Movilidad</span></td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill func">Funcional</span></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>21:00</td>
+            <td><span class="pill func">Funcional</span></td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill">CrossFit</span></td>
+            <td><span class="pill mob">Movilidad</span></td>
+            <td><span class="pill">CrossFit</span></td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="schedule-note">* Grilla simbólica – será reemplazada por los horarios definitivos.</p>
+  </div>
+</section>
+
+<!-- MERCHANDISING -->
+<section id="merchandasing">
+  <div class="merch-header">
+    <div class="section-title" style="color:var(--text-dark);">MERCHANDISING</div>
+    <span class="orange-bar" style="margin-top:14px;display:block;"></span>
+  </div>
+  <div class="merch-track-wrap">
+    <div class="merch-track" id="merchTrack">
+      <div class="merch-card"><img src="image/prod01.jpg" alt="Producto 1"></div>
+      <div class="merch-card"><img src="image/prod02.jpg" alt="Producto 2"></div>
+      <div class="merch-card"><img src="image/prod03.jpg" alt="Producto 3"></div>
+      <div class="merch-card"><img src="image/prod04.jpg" alt="Producto 4"></div>
+      <div class="merch-card"><img src="image/prod05.jpg" alt="Producto 5"></div>
+      <div class="merch-card"><img src="image/prod06.jpg" alt="Producto 6"></div>
+      <div class="merch-card"><img src="image/prod07.jpg" alt="Producto 7"></div>
+    </div>
+  </div>
+  <div class="merch-nav">
+    <button class="merch-btn" onclick="merchMove(-1)">&#8592;</button>
+    <button class="merch-btn" onclick="merchMove(1)">&#8594;</button>
+  </div>
+  <div class="merch-cta">
+    <a class="btn-pedido" href="https://wa.me/5493455285010?text=Hola!%20Quisiera%20hacer%20un%20pedido%20de%20merchandising%20EMOM" target="_blank">
+      Hacé tu pedido
+    </a>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contacto-inner">
+    <div class="redes-col">
+      <div class="section-title">NUESTRAS REDES</div>
+      <span class="orange-bar"></span>
+
+      <a class="red-item" href="https://www.instagram.com/emom.gym" target="_blank">
+        <div class="red-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.8" fill="white" stroke="none"/>
+          </svg>
+        </div>
+        <span class="red-label">Instagram</span>
+      </a>
+
+      <a class="red-item" href="https://wa.me/5493455285010" target="_blank">
+        <div class="red-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+        </div>
+        <span class="red-label">WhatsApp</span>
+      </a>
+
+      <div class="red-item" style="cursor:default;">
+        <div class="red-icon" style="pointer-events:none;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <span class="red-label">Tejedor 185, Parque Chacabuco</span>
+      </div>
+    </div>
+
+    <div class="map-col">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.992306880009!2d-58.428754299999994!3d-34.6296347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccb002bccc067%3A0xc8ac341b45d5ae8f!2sEmom%20Gym!5e0!3m2!1ses!2sar!4v1776280673187!5m2!1ses!2sar" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  &copy; 2025 EMOM Gym — Tejedor 185, Parque Chacabuco, CABA
+</footer>
+
+<script>
+  // ── GYM CAROUSEL ──
+  let gymIdx = 0;
+  const gymTotal = 5;
+  const gymTrack = document.getElementById('gymTrack');
+  const gymDotsEl = document.getElementById('gymDots');
+
+  for (let i = 0; i < gymTotal; i++) {
+    const d = document.createElement('span');
+    if (i === 0) d.classList.add('active');
+    d.onclick = () => gymGoTo(i);
+    gymDotsEl.appendChild(d);
+  }
+
+  function gymGoTo(n) {
+    gymIdx = (n + gymTotal) % gymTotal;
+    gymTrack.style.transform = `translateX(-${gymIdx * 100}%)`;
+    document.querySelectorAll('#gymDots span').forEach((d, i) =>
+      d.classList.toggle('active', i === gymIdx));
+  }
+
+  function gymMove(dir) { gymGoTo(gymIdx + dir); }
+
+  setInterval(() => gymMove(1), 4200);
+
+  // ── MERCH CAROUSEL ──
+  let merchOffset = 0;
+  const visibleMerch = () => window.innerWidth < 600 ? 1.25 : window.innerWidth < 900 ? 2 : 5;
+  const totalMerch = 7;
+
+  function getMerchCardWidth() {
+    const track = document.getElementById('merchTrack');
+    const card = track.querySelector('.merch-card');
+    if (!card) return 0;
+    const gap = 20;
+    return card.offsetWidth + gap;
+  }
+
+  function merchMove(dir) {
+    const vis = visibleMerch();
+    const max = totalMerch - Math.floor(vis);
+    merchOffset = Math.max(0, Math.min(max, merchOffset + dir));
+    const w = getMerchCardWidth();
+    document.getElementById('merchTrack').style.transform = `translateX(-${merchOffset * w}px)`;
+  }
+
+  // ── HEADER ACTIVE STATE ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-50% 0px -50% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
