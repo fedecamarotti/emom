@@ -50,7 +50,6 @@
     height: 46px;
     width: auto;
     display: block;
-    border-radius: 50%;
   }
 
   nav {
@@ -140,26 +139,30 @@
     color: var(--white);
   }
 
-  .hero-cta a:hover .arrow-circle { border-color: var(--orange); }
   .hero-cta a:hover svg { stroke: var(--orange); }
-
-  .arrow-circle {
-    width: 44px; height: 44px;
-    border: 1.5px solid rgba(255,255,255,0.5);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    animation: bounce 1.8s ease-in-out infinite;
-    transition: border-color 0.2s;
-  }
-
-  .arrow-circle svg {
-    transition: stroke 0.2s;
-  }
 
   @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50%       { transform: translateY(7px); }
   }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(48px);
+    transition: opacity 0.72s cubic-bezier(0.22,1,0.36,1),
+                transform 0.72s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.32s; }
+  .reveal-delay-4 { transition-delay: 0.44s; }
+  .reveal-delay-5 { transition-delay: 0.56s; }
+  .reveal-delay-6 { transition-delay: 0.68s; }
 
   /* ── SECTION BASE ── */
   section { scroll-margin-top: 70px; }
@@ -183,6 +186,22 @@
     background: var(--bg-light);
     color: var(--text-dark);
     padding: 96px 48px;
+    position: relative;
+  }
+
+  #nosotros::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('image/nosotrosfondo.png') center center / cover no-repeat;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #nosotros > * {
+    position: relative;
+    z-index: 1;
   }
 
   .nosotros-inner {
@@ -211,7 +230,10 @@
     overflow: hidden;
     border-radius: 2px;
     background: #ccc;
-    aspect-ratio: 4/3;
+    aspect-ratio: 3/4;
+    max-width: 320px;
+    width: 100%;
+    margin-left: auto;
   }
 
   .carousel-track {
@@ -591,15 +613,12 @@
   <div class="hero-grain"></div>
   <div class="hero-overlay"></div>
   <div class="hero-cta">
-    <span class="hero-cta-label">CrossFit &amp; Entrenamiento Funcional</span>
+    <span class="hero-cta-label">CONOCENOS</span>
     <a href="#nosotros">
-      <div class="arrow-circle">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="8" y1="2" x2="8" y2="13"/>
-          <polyline points="4 9 8 13 12 9"/>
-        </svg>
-      </div>
-      <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.55);">CONOCENOS</span>
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="animation:bounce 1.8s ease-in-out infinite; display:block; transition:stroke 0.2s;">
+        <line x1="16" y1="4" x2="16" y2="27"/>
+        <polyline points="8 19 16 27 24 19"/>
+      </svg>
     </a>
   </div>
 </section>
@@ -607,14 +626,14 @@
 <!-- NOSOTROS -->
 <section id="nosotros">
   <div class="nosotros-inner">
-    <div class="nosotros-text">
+    <div class="nosotros-text reveal">
       <div class="section-title">NOSOTROS</div>
       <span class="orange-bar"></span>
       <p>EMOM es un gimnasio pensado para acompañarte en el cambio que estás buscando. Creemos en un enfoque integral, donde entrenar no es solo moverse, sino mejorar tu bienestar y construir hábitos sostenibles.</p>
       <p>Ofrecemos clases de CrossFit, entrenamiento funcional y más, adaptadas a distintos niveles, con equipamiento de primera calidad.</p>
       <p>Nuestro compromiso es cuidarte en cada clase, con profesionales capacitados que te guían para que entrenes de forma segura, efectiva y constante.</p>
     </div>
-    <div class="carousel" id="gymCarousel">
+    <div class="carousel reveal reveal-delay-2" id="gymCarousel">
       <div class="carousel-track" id="gymTrack">
         <img src="image/gym01.jpg" alt="EMOM Gym">
         <img src="image/gym02.jpg" alt="EMOM Gym">
@@ -632,7 +651,7 @@
 <!-- CLASES -->
 <section id="clases">
   <div class="clases-inner">
-    <div class="clases-header">
+    <div class="clases-header reveal">
       <div>
         <div class="section-title">CLASES</div>
         <span class="orange-bar" style="margin-top:14px;display:block;"></span>
@@ -641,7 +660,7 @@
         Reservá tu clase de prueba
       </a>
     </div>
-    <div class="schedule-grid">
+    <div class="schedule-grid reveal reveal-delay-2">
       <table class="schedule-table">
         <thead>
           <tr>
@@ -718,11 +737,11 @@
 
 <!-- MERCHANDISING -->
 <section id="merchandasing">
-  <div class="merch-header">
+  <div class="merch-header reveal">
     <div class="section-title" style="color:var(--text-dark);">MERCHANDISING</div>
     <span class="orange-bar" style="margin-top:14px;display:block;"></span>
   </div>
-  <div class="merch-track-wrap">
+  <div class="merch-track-wrap reveal reveal-delay-2">
     <div class="merch-track" id="merchTrack">
       <div class="merch-card"><img src="image/prod01.jpg" alt="Producto 1"></div>
       <div class="merch-card"><img src="image/prod02.jpg" alt="Producto 2"></div>
@@ -733,11 +752,11 @@
       <div class="merch-card"><img src="image/prod07.jpg" alt="Producto 7"></div>
     </div>
   </div>
-  <div class="merch-nav">
+  <div class="merch-nav reveal reveal-delay-3">
     <button class="merch-btn" onclick="merchMove(-1)">&#8592;</button>
     <button class="merch-btn" onclick="merchMove(1)">&#8594;</button>
   </div>
-  <div class="merch-cta">
+  <div class="merch-cta reveal reveal-delay-4">
     <a class="btn-pedido" href="https://wa.me/5493455285010?text=Hola!%20Quisiera%20hacer%20un%20pedido%20de%20merchandising%20EMOM" target="_blank">
       Hacé tu pedido
     </a>
@@ -747,7 +766,7 @@
 <!-- CONTACTO -->
 <section id="contacto">
   <div class="contacto-inner">
-    <div class="redes-col">
+    <div class="redes-col reveal">
       <div class="section-title">NUESTRAS REDES</div>
       <span class="orange-bar"></span>
 
@@ -782,7 +801,7 @@
       </div>
     </div>
 
-    <div class="map-col">
+    <div class="map-col reveal reveal-delay-2">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.992306880009!2d-58.428754299999994!3d-34.6296347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccb002bccc067%3A0xc8ac341b45d5ae8f!2sEmom%20Gym!5e0!3m2!1ses!2sar!4v1776280673187!5m2!1ses!2sar" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
@@ -816,7 +835,6 @@
 
   function gymMove(dir) { gymGoTo(gymIdx + dir); }
 
-  setInterval(() => gymMove(1), 4200);
 
   // ── MERCH CAROUSEL ──
   let merchOffset = 0;
@@ -854,6 +872,18 @@
   }, { rootMargin: '-50% 0px -50% 0px' });
 
   sections.forEach(s => observer.observe(s));
+
+  // ── SCROLL REVEAL ──
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObs.observe(el));
 </script>
 </body>
 </html>
