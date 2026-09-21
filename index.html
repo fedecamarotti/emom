@@ -225,15 +225,23 @@
   }
 
   /* Carrusel */
-  .carousel {
-    position: relative;
-    overflow: hidden;
-    border-radius: 2px;
-    background: #ccc;
-    aspect-ratio: 3/4;
-    max-width: 320px;
+  .carousel-area {
+    max-width: 420px;
     width: 100%;
     margin-left: auto;
+    display: grid;
+    grid-template-columns: 46px minmax(0, 320px) 46px;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .carousel {
+    overflow: hidden;
+    border-radius: 10px;
+    background: #ccc;
+    aspect-ratio: 3/4;
+    width: 100%;
+    box-shadow: 0 16px 36px rgba(17,19,20,0.18);
   }
 
   .carousel-track {
@@ -250,39 +258,44 @@
   }
 
   .carousel-btn {
-    position: absolute;
-    top: 50%; transform: translateY(-50%);
-    background: rgba(17,19,20,0.55);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: #fff;
-    width: 38px; height: 38px;
-    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    border: 1px solid rgba(26,28,30,0.14);
+    background: rgba(255,255,255,0.78);
+    color: var(--text-dark);
     cursor: pointer;
-    font-size: 18px;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s;
-    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .carousel-btn:hover { background: var(--orange); border-color: var(--orange); }
-  .carousel-btn.prev { left: 12px; }
-  .carousel-btn.next { right: 12px; }
+  .carousel-btn svg { width: 20px; height: 20px; }
+  .carousel-btn:hover {
+    background: var(--orange);
+    color: var(--white);
+    border-color: var(--orange);
+    box-shadow: 0 8px 18px rgba(224,90,0,0.28);
+    transform: translateY(-2px);
+  }
+  .carousel-btn:focus-visible { outline: 3px solid rgba(224,90,0,0.32); outline-offset: 3px; }
 
   .carousel-dots {
     position: absolute;
-    bottom: 10px; left: 50%; transform: translateX(-50%);
+    bottom: 12px; left: 50%; transform: translateX(-50%);
     display: flex; gap: 6px;
   }
 
   .carousel-dots span {
     width: 7px; height: 7px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.45);
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.2s;
   }
 
-  .carousel-dots span.active { background: var(--orange); }
+  .carousel-dots span.active { background: var(--orange); transform: scale(1.2); }
 
   /* ── CLASES ── */
   #clases {
@@ -330,66 +343,84 @@
   .schedule-grid {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    background: #fff;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.16);
   }
 
   .schedule-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 700px;
+    min-width: 680px;
   }
 
   .schedule-table th {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.12em;
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--orange);
-    padding: 12px 14px;
+    color: #707477;
+    background: #f7f7f5;
+    padding: 12px 12px;
     text-align: left;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid #e6e5e2;
   }
 
+  .schedule-table th:first-child { padding-left: 18px; }
+
   .schedule-table td {
-    padding: 11px 14px;
+    padding: 9px 12px;
     font-size: 14px;
-    color: rgba(255,255,255,0.75);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-weight: 400;
+    color: #303336;
+    border-bottom: 1px solid #ededea;
+  }
+
+  .schedule-table td:first-child {
+    padding-left: 18px;
+    font-weight: 600;
+    color: #17191b;
+    font-variant-numeric: tabular-nums;
   }
 
   .schedule-table tr:last-child td { border-bottom: none; }
-
-  .schedule-table tr:hover td { background: rgba(255,255,255,0.03); }
+  .schedule-table tbody tr { transition: background 0.18s ease; }
+  .schedule-table tbody tr:hover td { background: #fbfaf8; }
 
   .pill {
-    display: inline-block;
-    font-family: 'Barlow Condensed', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Barlow', sans-serif;
     font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 2px;
-    background: rgba(224,90,0,0.15);
-    color: var(--orange);
-    border: 1px solid rgba(224,90,0,0.35);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    padding: 6px 9px;
+    border-radius: 7px;
+    background: #fff0e5;
+    color: #b74600;
+    border: 1px solid #ffd5b8;
   }
 
   .pill.func {
-    background: rgba(255,255,255,0.06);
-    color: rgba(255,255,255,0.6);
-    border-color: rgba(255,255,255,0.15);
+    background: #eef1f3;
+    color: #4a535a;
+    border-color: #d9dfe3;
   }
 
   .pill.mob {
-    background: rgba(80,180,120,0.1);
-    color: #5cb88a;
-    border-color: rgba(80,180,120,0.25);
+    background: #e8f6ef;
+    color: #23794f;
+    border-color: #c9ead9;
   }
 
   .schedule-note {
-    margin-top: 18px;
+    margin-top: 14px;
     font-size: 12px;
     color: var(--gray);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
   }
 
   /* ── MERCHANDISING ── */
@@ -602,7 +633,7 @@
   <nav>
     <a href="#nosotros">Nosotros</a>
     <a href="#clases">Clases</a>
-    <a href="#merchandasing">Merchandising</a>
+    <a href="#merchandasing">Nuestros productos</a>
     <a href="#contacto">Contacto</a>
   </nav>
 </header>
@@ -633,17 +664,23 @@
       <p>Ofrecemos clases de CrossFit, entrenamiento funcional y más, adaptadas a distintos niveles, con equipamiento de primera calidad.</p>
       <p>Nuestro compromiso es cuidarte en cada clase, con profesionales capacitados que te guían para que entrenes de forma segura, efectiva y constante.</p>
     </div>
-    <div class="carousel reveal reveal-delay-2" id="gymCarousel">
-      <div class="carousel-track" id="gymTrack">
-        <img src="image/gym01.jpg" alt="EMOM Gym">
-        <img src="image/gym02.jpg" alt="EMOM Gym">
-        <img src="image/gym03.jpg" alt="EMOM Gym">
-        <img src="image/gym04.jpg" alt="EMOM Gym">
-        <img src="image/gym05.jpg" alt="EMOM Gym">
+    <div class="carousel-area reveal reveal-delay-2">
+      <button class="carousel-btn prev" type="button" onclick="gymMove(-1)" aria-label="Foto anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 18-6-6 6-6"/></svg>
+      </button>
+      <div class="carousel" id="gymCarousel">
+        <div class="carousel-track" id="gymTrack">
+          <img src="image/gym01.jpg" alt="EMOM Gym">
+          <img src="image/gym02.jpg" alt="EMOM Gym">
+          <img src="image/gym03.jpg" alt="EMOM Gym">
+          <img src="image/gym04.jpg" alt="EMOM Gym">
+          <img src="image/gym05.jpg" alt="EMOM Gym">
+        </div>
+        <div class="carousel-dots" id="gymDots"></div>
       </div>
-      <button class="carousel-btn prev" onclick="gymMove(-1)">&#8592;</button>
-      <button class="carousel-btn next" onclick="gymMove(1)">&#8594;</button>
-      <div class="carousel-dots" id="gymDots"></div>
+      <button class="carousel-btn next" type="button" onclick="gymMove(1)" aria-label="Foto siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 18 6-6-6-6"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -738,7 +775,7 @@
 <!-- MERCHANDISING -->
 <section id="merchandasing">
   <div class="merch-header reveal">
-    <div class="section-title" style="color:var(--text-dark);">MERCHANDISING</div>
+    <div class="section-title" style="color:var(--text-dark);">NUESTROS PRODUCTOS</div>
     <span class="orange-bar" style="margin-top:14px;display:block;"></span>
   </div>
   <div class="merch-track-wrap reveal reveal-delay-2">
@@ -757,7 +794,7 @@
     <button class="merch-btn" onclick="merchMove(1)">&#8594;</button>
   </div>
   <div class="merch-cta reveal reveal-delay-4">
-    <a class="btn-pedido" href="https://wa.me/5493455285010?text=Hola!%20Quisiera%20hacer%20un%20pedido%20de%20merchandising%20EMOM" target="_blank">
+    <a class="btn-pedido" href="https://wa.me/5493455285010?text=Hola!%20Quisiera%20hacer%20un%20pedido%20de%20productos%20EMOM" target="_blank">
       Hacé tu pedido
     </a>
   </div>
